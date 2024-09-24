@@ -11,7 +11,7 @@ function HeadlingListProduct({ data }) {
         <div className={containerItem}>
           {data.map((item, index) => (
             <ProductItem
-              key={item.id}
+              key={`heading_product_${index}`}
               src={item.images[0]}
               prevSrc={item.images[1]}
               name={item.name}
