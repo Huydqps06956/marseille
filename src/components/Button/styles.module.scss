@@ -1,0 +1,17 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variable.module.scss';
+.btn {
+  color: $white_color;
+  font-size: 14px;
+  font-weight: 300;
+  background-color: $primary_color;
+  padding: 13px 45px;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid $primary_color;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background-color: transparent;
+  }
+}
