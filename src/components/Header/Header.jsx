@@ -1,4 +1,6 @@
 import styles from './styles.module.scss'
+import { useEffect, useState } from 'react'
+
 import BoxIcon from '@components/Header/BoxIcon/BoxIcon'
 import Menu from '@components/Header/Menu/Menu'
 import Logo from '@icons/images/Logo-retina.png'
@@ -6,17 +8,37 @@ import reloadIcon from '@icons/svgs/reloadicon.svg'
 import hearIcon from '@icons/svgs/hearticon.svg'
 import cartIcon from '@icons/svgs/carticon.svg'
 import { dataBoxIcon, dataMenu } from './constants'
+import useScrollHandling from '@/hooks/useScrollHandling'
+import classNames from 'classnames'
+import { useSideBar } from '@/contexts/SideBarProvider'
 function MyHeader() {
   const {
     containerHeader,
     containerBoxIcon,
     containerMenu,
     containerBox,
-    container
+    container,
+    fixedHeader,
+    topHeader
   } = styles
-  console.log(containerBoxIcon)
+
+  const [fixedPosition, setFixedPosition] = useState(false)
+  const { scrollPosition } = useScrollHandling()
+
+  useEffect(() => {
+    if (scrollPosition >= 80) {
+      setFixedPosition(true)
+    } else {
+      setFixedPosition(false)
+    }
+  }, [scrollPosition])
+
   return (
-    <div className={container}>
+    <div
+      className={classNames(container, topHeader, {
+        [fixedHeader]: fixedPosition
+      })}
+    >
       <div className={containerHeader}>
         <div className={containerBox}>
           <div className={containerBoxIcon}>
@@ -32,7 +54,7 @@ function MyHeader() {
             {dataMenu.slice(0, 3).map((item, index) => (
               <Menu
                 content={item.content}
-                href='item.href'
+                href={item.href}
                 key={`menu_${item.content}`}
               />
             ))}
