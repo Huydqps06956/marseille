@@ -11,5 +11,8 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, 'src/assets/styles'),
       '@icons': path.resolve(__dirname, 'src/assets/icons')
     }
+  },
+  css: {
+    devSourcemap: true
   }
 })

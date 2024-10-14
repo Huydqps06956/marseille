@@ -1,29 +1,40 @@
 import { useState } from 'react'
 import styles from './styles.module.scss'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
-const InputCommon = ({ label, type, isRequired = false }) => {
-  const { labelInput, boxInput, container, boxIcon } = styles
+import { FiEye } from 'react-icons/fi'
+import { FiEyeOff } from 'react-icons/fi'
 
-  const [showPassword, setShowPassword] = useState(true)
-
+function InputCommon({ label, type, isRequired = false, ...props }) {
+  const { labelInput, boxInput, container, boxIcon, errMsg } = styles
+  const [showPassword, setShowPassword] = useState(false)
+  const { formik, id } = props
+  const isPassword = type === 'password'
   const isShowTextPassword = type === 'password' && showPassword ? 'text' : type
+
   const handleShowPassword = () => {
     setShowPassword(!showPassword)
   }
 
-  const isPassword = type === 'password' ? true : false
+  const isErr = formik.touched[id] && formik.errors[id]
+  const mesErr = formik.errors
   return (
     <div className={container}>
       <div className={labelInput}>
         {label} {isRequired && <span>*</span>}
       </div>
       <div className={boxInput}>
-        <input type={isShowTextPassword} />
+        <input
+          type={isShowTextPassword}
+          id={id}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          value={formik.values[id]}
+        />
         {isPassword && (
           <div className={boxIcon} onClick={handleShowPassword}>
-            {showPassword ? <FiEye /> : <FiEyeOff />}
+            {showPassword ? <FiEyeOff /> : <FiEye />}
           </div>
         )}
+        {isErr && <div className={errMsg}>{mesErr[id]}</div>}
       </div>
     </div>
   )

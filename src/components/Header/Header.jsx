@@ -1,15 +1,16 @@
-import styles from './styles.module.scss'
 import { useEffect, useState } from 'react'
+import styles from './styles.module.scss'
 
+import useScrollHandling from '@/hooks/useScrollHandling'
 import BoxIcon from '@components/Header/BoxIcon/BoxIcon'
 import Menu from '@components/Header/Menu/Menu'
 import Logo from '@icons/images/Logo-retina.png'
-import reloadIcon from '@icons/svgs/reloadicon.svg'
-import hearIcon from '@icons/svgs/hearticon.svg'
-import cartIcon from '@icons/svgs/carticon.svg'
-import { dataBoxIcon, dataMenu } from './constants'
-import useScrollHandling from '@/hooks/useScrollHandling'
+import { PiShoppingCart } from 'react-icons/pi'
+import { BsHeart } from 'react-icons/bs'
+import { TfiReload } from 'react-icons/tfi'
+
 import classNames from 'classnames'
+import { dataBoxIcon, dataMenu } from './constants'
 import { useSideBar } from '@/contexts/SideBarProvider'
 function MyHeader() {
   const {
@@ -24,13 +25,14 @@ function MyHeader() {
 
   const [fixedPosition, setFixedPosition] = useState(false)
   const { scrollPosition } = useScrollHandling()
+  const { setIsOpen, setType } = useSideBar()
+  const handleOpenSideBar = (type) => {
+    setIsOpen(true)
+    setType(type)
+  }
 
   useEffect(() => {
-    if (scrollPosition >= 80) {
-      setFixedPosition(true)
-    } else {
-      setFixedPosition(false)
-    }
+    setFixedPosition(scrollPosition > 80)
   }, [scrollPosition])
 
   return (
@@ -78,9 +80,9 @@ function MyHeader() {
             ))}
           </div>
           <div className={containerBoxIcon}>
-            <img width='26px' height='26px' src={reloadIcon} alt='reload' />
-            <img width='26px' height='26px' src={hearIcon} alt='heart' />
-            <img width='26px' height='26px' src={cartIcon} alt='cart' />
+            <TfiReload onClick={() => handleOpenSideBar('compare')} />
+            <BsHeart onClick={() => handleOpenSideBar('wishlist')} />
+            <PiShoppingCart onClick={() => handleOpenSideBar('cart')} />
           </div>
         </div>
       </div>

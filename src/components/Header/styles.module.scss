@@ -26,7 +26,11 @@
   transition: transform 0.5s ease;
 }
 .containerBoxIcon {
-  @include flex_box_custom(center, center, 10px);
+  @include flex_box_custom(center, center, 20px);
+  svg {
+    cursor: pointer;
+    font-size: 20px;
+  }
 }
 .containerBox {
   @include flex_box_custom(center, center, 20px);
