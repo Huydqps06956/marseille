@@ -50,6 +50,7 @@
   padding-top: 9px;
   font-size: 15px;
   color: $primary_color;
+  position: relative;
   &:after {
     content: '';
     height: 3px;
@@ -65,5 +66,12 @@
   &:hover:after {
     transform: scale(1);
     opacity: 1;
+  }
+  .subMenu {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    padding: 10px;
+    top: 40px;
   }
 }

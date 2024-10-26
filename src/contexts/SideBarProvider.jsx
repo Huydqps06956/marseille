@@ -15,6 +15,6 @@ export const SideBarProvider = ({ children }) => {
 export function useSideBar() {
   const context = useContext(SideBarContext)
   if (context === undefined)
-    throw new Error('SideBarContext was used outside of DarkModeProvider')
+    throw new Error('SideBarContext was used outside of SideBarContext')
   return context
 }
